@@ -1,0 +1,41 @@
+trigger:
+  branches:
+    include:
+      - "*"
+    exclude:
+      - main
+      - releases/*
+
+resources:
+  repositories:
+    - repository: commontemplates
+      type: git
+      name: ERUS-FAAS/ERUS-FAAS-DevOps
+    - repository: sandboxRepository
+      type: git
+      name: ERUS-FAAS/ERUS-FAAS-Sandbox
+
+parameters:
+  - name: buildOnly
+    displayName: Build only (No deploy to DEV AKS Cluster)
+    type: boolean
+    default: true
+  - name: skipTests
+    displayName: Skip Integration tests and Advanced Security Scanning
+    type: boolean
+    default: false
+
+
+stages:
+  - template: "templates/integration/ci-cd_docker_service.yml@commontemplates"
+    parameters:
+      serviceName: "fleet-apigateway-service"
+      serviceAPILocation: "Erus.Faas.ApiGateway"
+      environmentName: "fleet-dev-uks"
+      dockerfileLocation: "."
+      runAdvancedSecurityScan: ${{ not(parameters.skipTests) }}
+      buildOnly: ${{ parameters.buildOnly }}
+      #Integration tests params
+      runIntegrationTest: ${{ not(parameters.skipTests) }}
+      skipTests: ${{ parameters.skipTests }}
+      IntegrationTestDatabaseList: []

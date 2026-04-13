@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+      - main
+      - releases/*
+
+resources:
+  repositories:
+    - repository: commontemplates
+      type: git
+      name: ERUS-FAAS/ERUS-FAAS-DevOps
+    - repository: sandboxRepository
+      type: git
+      name: ERUS-FAAS/ERUS-FAAS-Sandbox
+
+stages:
+  - template: "templates/release/ci-cd_docker_service.yml@commontemplates"
+    parameters:
+      serviceName: "fleet-apigateway-service"
+      serviceAPILocation: "Erus.Faas.ApiGateway"
+      dockerfileLocation: "."
+      IntegrationTestDatabaseList: []
