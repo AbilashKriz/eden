@@ -20,13 +20,15 @@ jobs:
           tenant-id: ${{ vars.AZURE_TENANT_ID }}
           subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
 
+      - name: Log in to ACR
+        run: az acr login --name cac1825fbddfacr
+
       - name: Build and deploy Container App
         uses: azure/container-apps-deploy-action@v2
         with:
           appSourcePath: ${{ github.workspace }}
           resourceGroup: abir_rg_5343
           containerAppName: hello-eden-app
-          # ADD THESE THREE LINES:
           dockerfilePath: Dockerfile
           imageToBuild: cac1825fbddfacr.azurecr.io/hello-eden-app:${{ github.sha }}
-          # Ensure you use your ACR name from the logs (cac1825fbddfacr)
+          acrName: cac1825fbddfacr
