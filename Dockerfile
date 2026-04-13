@@ -6,7 +6,7 @@ RUN dotnet restore
 COPY . .
 RUN dotnet publish -c Release -o /app
 
-# Stage 2: Runtime
+# Stage 2: Runtime  
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /app .
