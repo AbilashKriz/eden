@@ -26,5 +26,7 @@ jobs:
           appSourcePath: ${{ github.workspace }}
           resourceGroup: abir_rg_5343
           containerAppName: hello-eden-app
+          dockerfilePath: Dockerfile 
+          imageToBuild: hello-eden-app:latest
           # This will set up the environment and ACR automatically
           location: eastus
