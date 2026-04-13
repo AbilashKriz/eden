@@ -33,4 +33,5 @@ jobs:
           imageToBuild: cac1825fbddfacr.azurecr.io/hello-eden-app:${{ github.sha }}
           acrName: cac1825fbddfacr         
           acrUsername: ${{ secrets.ACR_USERNAME }}  
-          acrPassword: ${{ secrets.ACR_PASSWORD }}   
+          acrPassword: ${{ secrets.ACR_PASSWORD }}
+          targetPort: 8080
