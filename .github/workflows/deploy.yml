@@ -31,4 +31,6 @@ jobs:
           containerAppName: hello-eden-app
           dockerfilePath: Dockerfile
           imageToBuild: cac1825fbddfacr.azurecr.io/hello-eden-app:${{ github.sha }}
-          acrName: cac1825fbddfacr
+          acrName: cac1825fbddfacr         
+          acrUsername: ${{ secrets.ACR_USERNAME }}  
+          acrPassword: ${{ secrets.ACR_PASSWORD }}   
